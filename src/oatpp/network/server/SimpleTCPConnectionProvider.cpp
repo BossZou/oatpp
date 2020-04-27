@@ -21,6 +21,7 @@
  * limitations under the License.
  *
  ***************************************************************************/
+
 #include "./SimpleTCPConnectionProvider.hpp"
 
 #include "oatpp/core/utils/ConversionUtils.hpp"
@@ -163,11 +164,10 @@ oatpp::v_io_handle SimpleTCPConnectionProvider::instantiateServer(){
   struct addrinfo hints;
 
   memset(&hints, 0, sizeof(hints));
-  hints.ai_family = AF_UNSPEC;
-//  hints.ai_family = AF_INET;
+  hints.ai_family = AF_INET;
 //  hints.ai_family = AF_INET6;
   hints.ai_socktype = SOCK_STREAM;
-  hints.ai_protocol = IPPROTO_TCP;
+  hints.ai_protocol = 0;
   hints.ai_flags = AI_PASSIVE;
   auto portStr = oatpp::utils::conversion::int32ToStr(m_port);
 
