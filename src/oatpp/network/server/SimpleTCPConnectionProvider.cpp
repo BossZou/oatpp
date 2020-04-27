@@ -21,7 +21,7 @@
  * limitations under the License.
  *
  ***************************************************************************/
-
+#include <netinet/in.h>
 #include "./SimpleTCPConnectionProvider.hpp"
 
 #include "oatpp/core/utils/ConversionUtils.hpp"
@@ -164,8 +164,8 @@ oatpp::v_io_handle SimpleTCPConnectionProvider::instantiateServer(){
   struct addrinfo hints;
 
   memset(&hints, 0, sizeof(hints));
-  hints.ai_family = AF_INET;
-//  hints.ai_family = AF_INET6;
+//  hints.ai_family = AF_INET;
+  hints.ai_family = AF_INET6;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_protocol = 0;
   hints.ai_flags = AI_PASSIVE;
@@ -178,6 +178,8 @@ oatpp::v_io_handle SimpleTCPConnectionProvider::instantiateServer(){
     throw std::runtime_error("[oatpp::network::server::SimpleTCPConnectionProvider::instantiateServer()]: Error. Call to getaddrinfo() failed.");
   }
 
+  OATPP_LOGD("[SimpleTCPConnectionProvider::instantiateServer()]()", "(hints.ai_family=%d, hints.ai_socktype=%d, hints.ai_protocol=%d)", hints.ai_family, hints.ai_socktype, hints.ai_protocol);
+  OATPP_LOGD("[SimpleTCPConnectionProvider::instantiateServer()]()", "(result->ai_family=%d, result->ai_socktype=%d, result->ai_protocol=%d)", result->ai_family, result->ai_socktype, result->ai_protocol);
   serverHandle = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
   if (serverHandle < 0) {
     OATPP_LOGE("[oatpp::network::server::SimpleTCPConnectionProvider::instantiateServer()]",
