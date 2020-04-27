@@ -164,7 +164,8 @@ oatpp::v_io_handle SimpleTCPConnectionProvider::instantiateServer(){
   struct addrinfo hints;
 
   memset(&hints, 0, sizeof(hints));
-  hints.ai_family = AF_INET6;
+  hints.ai_family = AF_INET;
+//  hints.ai_family = AF_INET6;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_protocol = 0;
   hints.ai_flags = AI_PASSIVE;
@@ -203,6 +204,8 @@ oatpp::v_io_handle SimpleTCPConnectionProvider::instantiateServer(){
   ret = listen(serverHandle, 10000);
   if(ret < 0) {
     ::close(serverHandle);
+    OATPP_LOGE("[oatpp::network::server::SimpleTCPConnectionProvider::instantiateServer()]",
+               "Error. Failed to listen fd %d. (errno: %d, %s)", serverHandle, errno, strerror(errno));
     return -1 ;
   }
 
