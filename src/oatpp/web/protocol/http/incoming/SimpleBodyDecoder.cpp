@@ -119,9 +119,10 @@ void SimpleBodyDecoder::decode(const Headers& headers,
         data::buffer::IOBuffer buffer;
         data::stream::transfer(bodyStream, writeCallback,  0 /* read until error */, buffer.getData(), buffer.getSize(), processor);
 
-      } else {
-        throw std::runtime_error("[oatpp::web::protocol::http::incoming::SimpleBodyDecoder::decode()]: Error. Invalid Request.");
+//      } else {
+//        throw std::runtime_error("[oatpp::web::protocol::http::incoming::SimpleBodyDecoder::decode()]: Error. Invalid Request.");
       }
+        return;
 
     }
 
