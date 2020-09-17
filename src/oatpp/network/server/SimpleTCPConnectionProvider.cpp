@@ -154,7 +154,7 @@ oatpp::data::v_io_handle SimpleTCPConnectionProvider::instantiateServer(){
 
   struct sockaddr_in6 addr;
 
-  addr.sin6_family = AF_INET6;
+  addr.sin6_family = AF_INET;
   addr.sin6_port = htons(m_port);
   addr.sin6_addr = in6addr_any;
 
